@@ -100,8 +100,11 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
 #### 10.1	CONSULTAS DAS TABELAS COM TODOS OS DADOS INSERIDOS (Todas) <br>
 #### 10.2 PRINCIPAIS CONSULTAS DO SISTEMA 
  Inserir as principais consultas (relativas aos 5 principais relatórios) definidas previamente no iten 3.1 deste template.
+ <br>
   a) Você deve apresentar as consultas em formato SQL para cad um dos relatórios.
+ <br>
   b) Além da consulta deve ser apresentada uma imagem com o resultado obtido para cada consulta.
+ <br>
 
     
 
