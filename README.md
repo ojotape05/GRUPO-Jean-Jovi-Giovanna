@@ -53,7 +53,7 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
  a) inclusão do PMC desenvolvido pelo grupo
  
  
- ### 5.MODELO CONCEITUAL<br>
+ ### 6.MODELO CONCEITUAL<br>
     A) Utilizar a Notação adequada (Preferencialmente utilizar o BR Modelo 3)
     B) O mínimo de entidades do modelo conceitual pare este trabalho será igual a 3 e o Máximo 5.
         * informe quais são as 3 principais entidades do sistema em densenvolvimento
@@ -66,14 +66,9 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
         
 ![Alt text](https://github.com/discproint/template_projeto_integrador/blob/main/arquivos/concept_sample.png?raw=true "Modelo Conceitual")
     
+      
     
-        
-    
-#### 5.1 Validação do Modelo Conceitual
-    [Grupo01]: [Nomes dos que participaram na avaliação]
-    [Grupo02]: [Nomes dos que participaram na avaliação]
-
-#### 5.2 Descrição dos dados 
+#### 6.1 Descrição dos dados 
     [objeto]: [descrição do objeto]
     
     EXEMPLO:
@@ -81,17 +76,17 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
     CPF: campo que armazena o número de Cadastro de Pessoa Física para cada cliente da empresa.<br>
 
 
-### 6	MODELO LÓGICO<br>
+### 7	MODELO LÓGICO<br>
         a) inclusão do esquema lógico do banco de dados
         b) verificação de correspondencia com o modelo conceitual 
         (não serão aceitos modelos que não estejam em conformidade)
 
-### 7	MODELO FÍSICO<br>
+### 8	MODELO FÍSICO<br>
         a) inclusão das instruções de criacão das estruturas em SQL/DDL 
         (criação de tabelas, alterações, etc..) 
         
        
-### 8	INSERT APLICADO NAS TABELAS DO BANCO DE DADOS<br>
+### 9	INSERT APLICADO NAS TABELAS DO BANCO DE DADOS<br>
         a) inclusão das instruções de inserção dos dados nas tabelas criadas pelo script de modelo físico
         (Drop para exclusão de tabelas + create definição de para tabelas e estruturas de dados 
  <br> + insert para dados a serem inseridos)
@@ -100,10 +95,10 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
         c) formato .SQL
 
 
-### 9	TABELAS E PRINCIPAIS CONSULTAS<br>
+### 10	TABELAS E PRINCIPAIS CONSULTAS<br>
     OBS: Incluir para cada tópico as instruções SQL + imagens (print da tela) mostrando os resultados.<br>
-#### 9.1	CONSULTAS DAS TABELAS COM TODOS OS DADOS INSERIDOS (Todas) <br>
-#### 9.2 PRINCIPAIS CONSULTAS DO SISTEMA 
+#### 10.1	CONSULTAS DAS TABELAS COM TODOS OS DADOS INSERIDOS (Todas) <br>
+#### 10.2 PRINCIPAIS CONSULTAS DO SISTEMA 
  Inserir as principais consultas (relativas aos 5 principais relatórios) definidas previamente no iten 3.1 deste template.
   a) Você deve apresentar as consultas em formato SQL para cad um dos relatórios.
   b) Além da consulta deve ser apresentada uma imagem com o resultado obtido para cada consulta.
