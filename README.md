@@ -118,7 +118,7 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
  ### 12 Slides e Apresentação em vídeo. <br>
      OBS: Observe as instruções relacionadas a cada uma das atividades abaixo.<br>
  #### 12.1 Slides; <br>
- #### 12.1 Apresentação em vídeo <br>
+ #### 12.2 Apresentação em vídeo <br>
  <br>
  <br>   
 
