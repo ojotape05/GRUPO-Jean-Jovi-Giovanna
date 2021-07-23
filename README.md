@@ -105,8 +105,20 @@ Sugestão: https://balsamiq.com/products/mockups/<br>
  <br>
   b) Além da consulta deve ser apresentada uma imagem com o resultado obtido para cada consulta.
  <br>
-
-    
+ <br>
+ ### 11 Gráficos, relatórios, integração com Linguagem de programação e outras solicitações.<br>
+     OBS: Observe as instruções relacionadas a cada uma das atividades abaixo.<br>
+ #### 11.1	Integração com Linguagem de programação <br>
+ #### 11.2	Desenvolvimento de gráficos/relatórios pertinentes <br>
+ #### 11.3 Demais solicitações feitas pelo professor <br>
+ <br>
+ <br>
+ ### 12 Slides e Apresentação em vídeo. <br>
+     OBS: Observe as instruções relacionadas a cada uma das atividades abaixo.<br>
+ #### 12.1 Slides <br>
+ #### 12.1 Apresentação em vídeo <br>
+ <br>
+ <br>   
 
 
     
