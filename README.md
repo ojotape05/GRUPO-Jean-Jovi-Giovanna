@@ -89,35 +89,18 @@ José Vítor Williams Wotzasek : josevww@gmail.com<br>
     ON DELETE SET NULL;
     
 > insert into receita(CodReceita, nomerec) values(1,'lasanha');
+
 > insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (1,'Jose Vitor',1,1,1,1);
+
 > insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)
         
        
 ### 9	INSERT APLICADO NAS TABELAS DO BANCO DE DADOS<br>
- > ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_2
-    FOREIGN KEY (fk_Comentario_CodigoComent)
-    REFERENCES Comentario (CodigoComent);
- 
-> ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_3
-    FOREIGN KEY (fk_Usuario_CodigoUsu)
-    REFERENCES Usuario (CodigoUsu)
-    ON DELETE SET NULL;
- 
-> ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_4
-    FOREIGN KEY (fk_Receita_CodReceita)
-    REFERENCES Receita (CodReceita)
-    ON DELETE SET NULL;
- 
-> ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_1
-    FOREIGN KEY (fk_Usuario_CodigoUsu)
-    REFERENCES Usuario (CodigoUsu)
-    ON DELETE SET NULL;
- 
-> ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_2
-    FOREIGN KEY (fk_Receita_CodReceita)
-    REFERENCES Receita (CodReceita)
-    ON DELETE SET NULL; 
-    
+
+insert into receita(CodReceita, nomerec) values(1,'lasanha');<br>
+insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (1,'Jose Vitor',1,1,1,1);<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)<br>
+
 ### 10 TABELA E PRINCIPAIS CONSULTAS<br>
 
 ![Tabela1](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela1.jpeg?raw=true "Tabela1")
