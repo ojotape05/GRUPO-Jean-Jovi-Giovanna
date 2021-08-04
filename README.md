@@ -117,3 +117,14 @@ José Vítor Williams Wotzasek : josevww@gmail.com<br>
     FOREIGN KEY (fk_Receita_CodReceita)
     REFERENCES Receita (CodReceita)
     ON DELETE SET NULL; 
+    
+### 10 TABELA E PRINCIPAIS CONSULTAS<br>
+
+![Tabela1](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela1.jpeg?raw=true "Tabela1")
+> insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)
+
+![Tabela3](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela3.jpeg?raw=true "Tabela3")
+> insert into receita(CodReceita, nomerec) values(1,'lasanha');
+
+![Tabela4](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela4.jpeg?raw=true "Tabela4")
+> insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (1,'Jose Vitor',1,1,1,1);
