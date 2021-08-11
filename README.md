@@ -7,6 +7,7 @@ Trabalho desenvolvido durante a disciplina de Banco de Dados do Integrado
 Integrantes do grupo<br>
 Jean Pedro Bremer Pissineli : jpbpissineli05@gmail.com<br>
 José Vítor Williams Wotzasek : josevww@gmail.com<br>
+Giovanna Ferreira Fiorio : <email><br>
 
 ### 2.MINIMUNDO<br>
 > O sistema proposto tem duas faces, sendo elas site e aplicativo. No Usuário serão armazenados o nome do usuário, e suas configurações do aplicativo, como: tipo de voz, cor da fonte, tamanho e o tipo. Será gerado para cada usuário um Código de Usuário. Na Receita serão armazenados somente o nome da receita. Será gerado para cada receita um Código de Receita. No Comentário serão armazenados a data de publicação, o comentário pai (que poderá ser NULO), assim como seu conteúdo. Será gerado para cada comentáro um Código de Comentário. Vale destacar que cada Usuário poderá fazer quantos Comentários quiser e os comentários devem estar obrigatóriamente alocados a um Usuário. Os Comentários, por sua vez, poderão ter respostas à ele, mas não obrigatóriamente, e aparecerão exclusivamente na receita onde o usuário fez o post. As Receitas poderão ter diversos comentários, obrigatóriamente alocadas a um usuário assim como serem 'favoritadas' por ele, indicando que esta dada receita é uma das suas favoritas.<br>
@@ -25,7 +26,7 @@ José Vítor Williams Wotzasek : josevww@gmail.com<br>
 
 ### 5.PMC<br>
 
-![Alt text](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/PMC.JPG?raw=true "PMC")
+![Alt text](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/PMC%20JP%2CJV%2CGF.jpg?raw=true "PMC")
  
 ### 6.MODELO CONCEITUAL<br>
 
