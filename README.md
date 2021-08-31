@@ -136,10 +136,23 @@ insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, 
 
 ### 10 TABELA E PRINCIPAIS CONSULTAS<br>
 
-#### 10.1	CONSULTAS DAS TABELAS COM TODOS OS DADOS INSERIDOS (Todas) <br>
-
 ![Consulta1](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Consultas/ConsultaComentario.jpeg?raw=true "Consulta1")
 
 ![Consulta2](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Consultas/ConsultaReceita.jpeg?raw=true "Consulta2")
 
 ![Consulta3](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Consultas/ConsultaUsuario.jpeg?raw=true "Consulta3")
+
+ ### 11 Gráficos, relatórios, integração com Linguagem de programação e outras solicitações.<br>
+ 
+ LINK: https://colab.research.google.com/drive/1O7uZN5pPZU6WAapiSe9lV-UQ5owAf8Qh?usp=sharing
+ <br>
+ 
+ ### 12 Slides e Apresentação em vídeo. <br>
+ 
+ #### 12.1 Slides; <br>
+ 
+ Acessar slides: ![Arquivo PDF dos Slides](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Projeto%20Come-Come.pdf?raw=true "Slides")
+ 
+ #### 12.2 Apresentação em vídeo<br>
+ 
+ Link do vídeo: 
