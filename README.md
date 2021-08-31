@@ -18,7 +18,11 @@ Giovanna Ferreira Fiorio : ggiovannaffiorio@gmail.com<br>
 #### 3.1 QUAIS PERGUNTAS PODEM SER RESPONDIDAS COM O SISTEMA PROPOSTO?
     
 > O Projeto precisa inicialmente dos seguintes relatórios:
-* Informações do Usuário, como: Nome, Tipo de Voz, Cor da Fonte, Tamanho da Fonte e Tipo de Fonte.
+*  Relatório de receitas tem maior números de "favoritos"?
+*  Relatório de usuários favoritaram mais a receita de "Pudim"?
+*  Relatório de usuários postaram mais receitas no site?
+*  Relatório da preferência dos usuários no tamanho da fonte do site?
+*  Relatório de quantas vezes cada usuário comentou?
 
 ### 4 TABELA DE DADOS DO SISTEMA:
 
@@ -132,11 +136,10 @@ insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, 
 
 ### 10 TABELA E PRINCIPAIS CONSULTAS<br>
 
-![Tabela1](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela1.jpeg?raw=true "Tabela1")
-> insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)
+#### 10.1	CONSULTAS DAS TABELAS COM TODOS OS DADOS INSERIDOS (Todas) <br>
 
-![Tabela3](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela3.jpeg?raw=true "Tabela3")
-> insert into receita(CodReceita, nomerec) values(1,'lasanha');
+![Consulta1](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Consultas/ConsultaComentario.jpeg?raw=true "Consulta1")
 
-![Tabela4](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/Tabela4.jpeg?raw=true "Tabela4")
-> insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (1,'Jose Vitor',1,1,1,1);
+![Consulta2](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Consultas/ConsultaReceita.jpeg?raw=true "Consulta2")
+
+![Consulta3](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Consultas/ConsultaUsuario.jpeg?raw=true "Consulta3")
