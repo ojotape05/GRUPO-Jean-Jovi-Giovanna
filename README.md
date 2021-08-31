@@ -22,7 +22,7 @@ Giovanna Ferreira Fiorio : <email><br>
 
 ### 4 TABELA DE DADOS DO SISTEMA:
 
-![Arquivo PDF das Tabelas](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/TabelaeExemplo.pdf?raw=true "Tabelas")
+![Arquivo PDF das Tabelas](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/Tabelas/tabelas.pdf?raw=true "Tabelas")
 
 ### 5.PMC<br>
 
@@ -30,77 +30,105 @@ Giovanna Ferreira Fiorio : <email><br>
  
 ### 6.MODELO CONCEITUAL<br>
 
-![Alt text](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/ModeloConceitual.jpeg?raw=true "Modelo Conceitual")    
+![Modelo Conceitual](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/NOVO%20Modelo%20Conceitual.jpeg?raw=true "Modelo Conceitual")    
     
 ### 7	MODELO LÓGICO<br>
 
-![Modelo Lógico](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/L%C3%B3gico_1.brM3?raw=true "Modelo Lógico")  
+![Modelo Lógico](https://github.com/jpbpissineli/GRUPO-Jean-Jovi-Giovanna/blob/main/arquivos/NOVO%20Modelo%20L%C3%B3gico.jpeg?raw=true "Modelo Lógico")  
 
 ### 8	MODELO FÍSICO<br>
-> CREATE TABLE Receita (
-    CodReceita int PRIMARY KEY,
-    NomeRec Varchar(25)
-);
+/* Lógico_2: */<br>
 
-> CREATE TABLE Usuario (
-    CodigoUsu int  PRIMARY KEY,
-    Nome varchar(25),
-    CorFonte int,
-    TamanhoFonte int,
-    TipoFonte int,
-    TipoVoz int
-);
-
-> CREATE TABLE Comentario (
-    CodigoComent int PRIMARY KEY,
-    Conteudo varchar(500),
-    dataPost date,
-    fk_Comentario_CodigoComent int,
-    fk_Usuario_CodigoUsu int ,
-    fk_Receita_CodReceita int
-);
-
-> CREATE TABLE Favorito (
-    fk_Usuario_CodigoUsu int ,
-    fk_Receita_CodReceita int
-);
- 
-> ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_2
-    FOREIGN KEY (fk_Comentario_CodigoComent)
-    REFERENCES Comentario (CodigoComent);
- 
-> ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_3
-    FOREIGN KEY (fk_Usuario_CodigoUsu)
-    REFERENCES Usuario (CodigoUsu)
-    ON DELETE SET NULL;
- 
-> ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_4
-    FOREIGN KEY (fk_Receita_CodReceita)
-    REFERENCES Receita (CodReceita)
-    ON DELETE SET NULL;
- 
-> ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_1
-    FOREIGN KEY (fk_Usuario_CodigoUsu)
-    REFERENCES Usuario (CodigoUsu)
-    ON DELETE SET NULL;
- 
-> ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_2
-    FOREIGN KEY (fk_Receita_CodReceita)
-    REFERENCES Receita (CodReceita)
-    ON DELETE SET NULL;
-    
-> insert into receita(CodReceita, nomerec) values(1,'lasanha');
-
-> insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (1,'Jose Vitor',1,1,1,1);
-
-> insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)
-        
+CREATE TABLE Receita (<br>
+    CodReceita int PRIMARY KEY,<br>
+    NomeRec Varchar(25),<br>
+    fk_Usuario_CodigoUsu int<br>
+);<br>
+<br>
+CREATE TABLE Usuario (<br>
+    CodigoUsu int  PRIMARY KEY,<br>
+    Nome varchar(25),<br>
+    CorFonte int,<br>
+    TamanhoFonte int,<br>
+    TipoFonte int,<br>
+    TipoVoz int<br><br>
+);<br>
+<br>
+CREATE TABLE Comentario (<br>
+    CodigoComent int PRIMARY KEY,<br>
+    Conteudo varchar(500),<br>
+    dataPost date,<br>
+    fk_Comentario_CodigoComent int,<br>
+    fk_Usuario_CodigoUsu int ,<br>
+    fk_Receita_CodReceita int<br><br>
+);<br>
+<br>
+CREATE TABLE Favorito (<br>
+    fk_Receita_CodReceita int,<br>
+    fk_Usuario_CodigoUsu int <br>
+);<br>
+ <br>
+ALTER TABLE Receita ADD CONSTRAINT FK_Receita_2<br>
+    FOREIGN KEY (fk_Usuario_CodigoUsu)<br>
+    REFERENCES Usuario (CodigoUsu)<br>
+    ON DELETE SET NULL;<br>
+ <br>
+ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_2<br>
+    FOREIGN KEY (fk_Comentario_CodigoComent)<br>
+    REFERENCES Comentario (CodigoComent);<br>
+<br> 
+ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_3<br>
+    FOREIGN KEY (fk_Usuario_CodigoUsu)<br>
+    REFERENCES Usuario (CodigoUsu)<br>
+    ON DELETE SET NULL;<br>
+<br> 
+ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_4<br>
+    FOREIGN KEY (fk_Receita_CodReceita)<br>
+    REFERENCES Receita (CodReceita)<br>
+    ON DELETE SET NULL;<br>
+<br> 
+ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_1<br>
+    FOREIGN KEY (fk_Receita_CodReceita)<br>
+    REFERENCES Receita (CodReceita)<br>
+    ON DELETE SET NULL;<br>
+<br> 
+ALTER TABLE Favorito ADD CONSTRAINT FK_Favorito_2<br>
+    FOREIGN KEY (fk_Usuario_CodigoUsu)<br>
+    REFERENCES Usuario (CodigoUsu)<br>
+    ON DELETE SET NULL;<br>
+<br>      
        
 ### 9	INSERT APLICADO NAS TABELAS DO BANCO DE DADOS<br>
 
-insert into receita(CodReceita, nomerec) values(1,'lasanha');<br>
+insert into receita(CodReceita, nomerec,usuAutor) values(1,'lasanha',1);<br>
 insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (1,'Jose Vitor',1,1,1,1);<br>
-insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu,  fk_Receita_CodReceita) values (1,'Incrivel!', '2011-03-20', 1,1)
+<br>
+ 
+insert into receita(CodReceita, nomerec,usuAutor) values(2,'Bolo',2);<br>
+insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (2,'Giovanna',2,3,1,4);<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, fk_Receita_CodReceita) values (2,'Delícia', '2021-07-29',1,2);
+<br>
+
+insert into receita(CodReceita, nomerec,usuAutor) values(3,'Moqueca',3);<br>
+insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (3,'Paulo',2,1,2,3);<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, fk_Receita_CodReceita) values (3,'Gostoso', '2021-08-20',3,3);
+<br>
+ 
+insert into receita(CodReceita, nomerec,usuAutor) values(4,'Torta de Frango',4);<br>
+insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (4,'Pedro',3,1,2,1);<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, fk_Receita_CodReceita) values (4,'Bom demais', '2021-07-4', 1,4);
+<br>
+ 
+insert into receita(CodReceita, nomerec,usuAutor) values(5,'Pudim',5);<br>
+insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (5,'Marcos',2,2,3,5);<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, fk_Receita_CodReceita) values (5,'Dlc', '2021-08-19',5,5);
+<br>
+ 
+insert into receita(CodReceita, nomerec,usuAutor) values(6,'Bobó de camarão',6);<br>
+insert into usuario(codigousu, nome, corfonte, tamanhofonte, tipofonte,tipovoz) values (6,'Marcela',2,3,4,1);<br>
+insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, fk_Receita_CodReceita) values (6,'Deu certo!!', '2021-07-15',6 ,6);
+<br>
 
 ### 10 TABELA E PRINCIPAIS CONSULTAS<br>
 
