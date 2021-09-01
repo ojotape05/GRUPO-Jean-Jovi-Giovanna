@@ -155,4 +155,4 @@ insert into comentario (codigocoment, Conteudo, dataPost, fk_Usuario_CodigoUsu, 
  
  #### 12.2 Apresentação em vídeo<br>
  
- Link do vídeo: 
+ Link do vídeo: https://www.pechakucha.com/presentations/apresenta-o-191 
