@@ -6,7 +6,6 @@
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<meta name="generator" content="Geany 1.37.1" />
 	</head>
-
 	<body>
 		<div class="header">
 			<div class="conteudo">
@@ -15,17 +14,20 @@
 			
 		</div>
 		
-		<form method="POST" action="index.php">
 		<div id="login"> 
-			<h1> Login </h1>
-			<input type="text" id="nome" placeholder="Nome de Usuário">
-			<br><br>
-			<input type="password" id="senha" placeholder="Senha">
-			<br><br>
-			<input type="submit" value="Entrar" id="cadastrar" name="cadastrar">
-		</div>
+			<form action= "<?php echo $_SERVER['PHP_SELF']; ?>"method="POST">
+				<h1> Login </h1>
+				<input type="text" name="nome" placeholder="Nome de Usuário">
+				<br><br>
+				<input type="password" name="senha" placeholder="Senha">
+				<br><br>
+				<button type="submit" name="cadastrar"> Enviar </button>
+			</div>
 		</form>
 		
+		<?php
+		
+		?>
+		
 	</body>
-
 </html>
