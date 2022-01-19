@@ -1,0 +1,117 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.4.2
+-- http://www.phpmyadmin.net
+--
+-- Máquina: localhost
+-- Data de Criação: 19-Jan-2022 às 00:47
+-- Versão do servidor: 5.6.13
+-- versão do PHP: 5.4.17
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de Dados: `bd_comecome`
+--
+CREATE DATABASE IF NOT EXISTS `bd_comecome` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `bd_comecome`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `favorito`
+--
+
+CREATE TABLE IF NOT EXISTS `favorito` (
+  `fk_Receita_CodReceita` int(11) DEFAULT NULL,
+  `fk_Usuario_CodigoUsu` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `receita`
+--
+
+CREATE TABLE IF NOT EXISTS `receita` (
+  `CodReceita` int(11) NOT NULL AUTO_INCREMENT,
+  `NomeRec` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `Preparo` varchar(555) DEFAULT NULL,
+  `imagem` varchar(50) DEFAULT NULL,
+  `fk_Usuario_CodigoUsu` int(11) DEFAULT NULL,
+  `descricao` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `ingredientes` varchar(255) DEFAULT NULL,
+  `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`CodReceita`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Extraindo dados da tabela `receita`
+--
+
+INSERT INTO `receita` (`CodReceita`, `NomeRec`, `Preparo`, `imagem`, `fk_Usuario_CodigoUsu`, `descricao`, `ingredientes`, `data`) VALUES
+(9, 'Mousse de MaracujÃ¡ com Chocolate', 'mexe mexe mexe', '61ddedd9c682e.jpg', 5, 'Mutcho Louca', '<li> Maracuja </li><li> Um tablete de chocolate </li>', '2022-01-11 20:51:37'),
+(10, 'PÃ£o de Queijo Macio', 'Coloque no forno 180Âº por 20min e desfrute !', '61e0959f602e1.jpg', 6, 'receita muito saborosa e simples!', '<li> Manteiga </li><li> PÃ£o de queijo </li>', '2022-01-13 21:11:59'),
+(11, 'Pudim', 'Fazer e tal papapa', '61e3032fb1a54.jpg', 6, 'Pudim gostoso', '<li> Leite condensado </li>', '2022-01-15 17:23:59'),
+(12, ' Pastel de Feira', 'Coloque a farinha misturada com o sal em uma vasilha ou uma mesa e abra um buraco no meio.', '61e5e708e84d3.jpg', 7, 'Pastel tÃ­pico de feira', '<li> 3 xÃ­caras de farinha de trigo </li><li> 1 xÃ­cara de Ã¡gua morna </li><li> 3 colheres (sopa) de Ã³leo </li><li> 1 colher (sopa) de aguardente </li><li> 1 colher rasa de sal </li><li> farinha de trigo para trabalhar a massa </li>', '2022-01-17 22:00:40'),
+(13, 'Bolo de Chocolate', 'Massa:&#13;&#10;&#13;&#10;Em um liquidificador adicione os ovos, o chocolate em pÃ³, a manteiga, a farinha de trigo, o aÃ§Ãºcar e o leite, depois bata por 5 minutos.&#13;&#10;&#13;&#10;Adicione o fermento e misture com uma espÃ¡tula delicadamente.&#13;&#10;&#13;&#10;Em uma forma untada, despeje a massa e asse em forno mÃ©dio (180 ÂºC) preaquecido por cerca de 40 minutos. NÃ£o se esqueÃ§a de usar uma forma alta para essa receita: como leva duas colheres de fermento, ela cresce bastante! Outra soluÃ§Ã£o pode ser colocar apenas uma colher de fermento e', '61e5e839de132.jpg', 7, 'Bolo de chocolate caseiro muito gostoso!', '<li> Chocolate </li>', '2022-01-17 22:05:45');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `seguir`
+--
+
+CREATE TABLE IF NOT EXISTS `seguir` (
+  `IdSeguindo` int(255) DEFAULT NULL,
+  `IdSeguido` int(255) DEFAULT NULL,
+  UNIQUE KEY `IdSeguindo` (`IdSeguindo`,`IdSeguido`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `seguir`
+--
+
+INSERT INTO `seguir` (`IdSeguindo`, `IdSeguido`) VALUES
+(6, 0),
+(6, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `CodigoUsu` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `CorFonte` int(11) DEFAULT NULL,
+  `TamanhoFonte` int(11) DEFAULT NULL,
+  `TipoFonte` int(11) DEFAULT NULL,
+  `TipoVoz` int(11) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `senha` varchar(32) DEFAULT NULL,
+  `foto` varchar(50) DEFAULT NULL,
+  `descricaoPerfil` text,
+  PRIMARY KEY (`CodigoUsu`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`CodigoUsu`, `nome`, `CorFonte`, `TamanhoFonte`, `TipoFonte`, `TipoVoz`, `email`, `senha`, `foto`, `descricaoPerfil`) VALUES
+(5, 'Jonathan Rodriguez', NULL, NULL, NULL, NULL, 'jrodriguez@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '61dc98273d57b.jpg', NULL),
+(6, 'Jean Pedro Bremer Pissineli', NULL, NULL, NULL, NULL, 'jpbpissineli05@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '61deeb585ddd2.jpg', NULL),
+(7, 'Jose Vitor Williams Wotzasek', NULL, NULL, NULL, NULL, 'josevww@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '61e1ddace8450.jpeg', 'Um cara gente fina'),
+(8, 'Giovanna Ferreira Fiorio', NULL, NULL, NULL, NULL, 'ggiovannaffiorio@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '61e60d2ddf458.jpg', 'uma menina bacana');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
