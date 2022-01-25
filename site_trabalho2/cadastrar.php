@@ -37,16 +37,18 @@ include_once 'includes/header.php';
 						$erros[] = "<script>alert('O login $login já está cadastrado');</script>";
 					else:
 						if(empty($descricao)):
-							$sql = "INSERT INTO usuario (nome, email,senha,foto) VALUES ('$nome','$login','$senha','$novoNome')";
+							$sql = "INSERT INTO usuario (nome, email,senha,imagem) VALUES ('$nome','$login','$senha','$novoNome')";
 							$resultado = mysqli_query($connect,$sql);
 							if ($resultado):
 								$_SESSION['logado'] = true;
 								$_SESSION['id_usuario'] = mysqli_insert_id($connect);
 								mysqli_close();
 								header('Location: home.php');
+							else:
+								"<script>alert('Não foi possível inserir as informações ao banco de dados');</script>";
 							endif;
 						else:
-							$sql = "INSERT INTO usuario (nome, email,senha,foto,descricaoPerfil) VALUES ('$nome','$login','$senha','$novoNome','$descricao')";
+							$sql = "INSERT INTO usuario (nome, email,senha,imagem,sobre) VALUES ('$nome','$login','$senha','$novoNome','$descricao')";
 							$resultado = mysqli_query($connect,$sql);
 							if ($resultado):
 								$_SESSION['logado'] = true;
