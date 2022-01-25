@@ -4,4 +4,4 @@ CREATE TABLE usuario(codusu SERIAL NOT NULL, email varchar(48) NOT NULL, imagem 
 
 CREATE TABLE favorito(codreceita int NOT NULL, codusu int NOT NULL);
 
-CREATE TABLE seguidos(seguido int, seguidos int);
+CREATE TABLE seguidos(seguindo int, seguido int);
