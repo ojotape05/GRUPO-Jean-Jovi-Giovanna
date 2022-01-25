@@ -1,8 +1,5 @@
 <?php
 include_once 'includes/header.php';
-?>
-
-<?php
 
 // conexao com bd;
 require_once 'bd_conectar.php';
@@ -19,16 +16,30 @@ if(!isset($_SESSION['logado'])):
 endif;
 
 $id = $_SESSION['id_usuario'];
-$sql = "SELECT * FROM usuario WHERE CodigoUsu = '$id'";
+$sql = "SELECT * FROM usuario WHERE codusu = '$id'";
 $resultado = mysqli_query($connect, $sql);
 $dados = mysqli_fetch_assoc($resultado);
+
+//VALIDANDO COZINHEIROS
+if(!empty($_GET['cozinheiros'])):
+	$cozinheiros = $_GET['cozinheiros'];
+else:
+	$cozinheiros = false;
+endif;
+
+//VALIDANDO SEGUIDOS
+if(!empty($_GET['seguidos'])):
+	$seguidos = $_GET['seguidos'];
+else:
+	$seguidos = false;
+endif;
 ?>
 <header>
 	<nav class="#fbc02d yellow darken-2" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-      <ul class="right hide-on-med-and-down">
+    <div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
+      <ul class="right">
         <li><a href="post.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> add_circle </i> </a> </li>
-		<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
+		<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating"> <img class="circle z-depth-2" height='50px' width='50px' src="fotosperfil/<?php echo $dados['imagem']; ?>"> </a> </li>
 		<li><a href="logout.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> stop </i> </a> </li>
       </ul>
     </div>
@@ -36,16 +47,9 @@ $dados = mysqli_fetch_assoc($resultado);
 </header>
 
 <main>
-	 <div id="divpesquisa" class="nav-wrapper container z-depth-1">
-	  
-	  <?php
-		if(!empty($_GET['cozinheiros'])):
-			$cozinheiros = $_GET['cozinheiros'];
-		else:
-			$cozinheiros = false;
-		endif;
-	  
-	  
+	<?php
+	if(!$seguidos):
+		echo "<div id='divpesquisa' class='nav-wrapper container z-depth-1'>";
 		if($cozinheiros):
 			$servidor = $_SERVER['PHP_SELF'];
 			echo "<form action='$servidor' method='GET'>
@@ -67,136 +71,227 @@ $dados = mysqli_fetch_assoc($resultado);
 					<input name='cozinheiros' type='hidden' value=''>
 				  </form>";
 		endif;
-	  ?>
-    </div>
+		echo "</div>";
+	endif;
+    
+	?>
 	
 	<div class="row container">
 	<?php
 	
 	if(empty($_GET['pesquisa'])):
-
-		if($cozinheiros): //TELA DE COZINHEIROS
-		
+	
+		if($seguidos): // TELA SEGUIDOS
 			echo 
 			"<div id='alternarpaginas' class='container collection'>
 				<a href='home.php?' class='collection-item'>RECEITAS</a>
-				<a href='home.php?cozinheiros=true' class='collection-item active'>COZINHEIROS</a>
+				<a href='home.php?cozinheiros=true' class='collection-item'>COZINHEIROS</a>
+				<a href='home.php?seguidos=true' class='collection-item active'>SEGUIDOS</a>
 			</div>";
 			
-			$sql = "SELECT DISTINCT fk_Usuario_CodigoUsu FROM receita ORDER BY data DESC";
+			$sql = "SELECT * FROM seguidos WHERE seguindo = $id";
 			$resultado = mysqli_query($connect, $sql);
-			$ids = Array();
+			$seguir = Array();
 			while ($row = mysqli_fetch_assoc($resultado)):
-				$ids[] = $row['fk_Usuario_CodigoUsu'];
+				$seguir[] = $row['seguido'];
 			endwhile;
 			
-			$n = 0;
-			while($n < count($ids)):
-				$id_donodopost = $ids[$n];
-
-				if (mysqli_num_rows($resultado) > 0):
-					$sql= "SELECT * FROM usuario WHERE CodigoUsu = '$id_donodopost'";
+			if(count($seguir)>0):
+				$n = 0;
+				while($n < count($seguir)):
+					$idseguido = $seguir[$n];
+					
+					// selecionando os dados da receita
+					$sql = "SELECT * FROM receita WHERE autor = '$idseguido'";
+					$resultado = mysqli_query($connect, $sql);
+					$dados_receita = mysqli_fetch_assoc($resultado);
+					
+					// selecionando os dados do criador do post receita
+					$donodopost = $dados_receita['autor'];
+					$sql= "SELECT * FROM usuario WHERE codusu = '$donodopost'";
 					$resultado = mysqli_query($connect, $sql);
 					$dados_donodopost = mysqli_fetch_assoc($resultado);
 					
 					// atribuindo valores para melhor escrita e entendimento
 					
-					//valores do usuario dono de posts:
-				
-					$foto_donodopost = $dados_donodopost['foto'];
+					//valores do usuario dono do post:
+					$id_donodopost = $dados_donodopost['codusu'];
+					$foto_donodopost = $dados_donodopost['imagem'];
 					$nome_donodopost = $dados_donodopost['nome'];
 					
-					echo "<div class='cozinheiros'>
-							<div name='perfil'>
-								<td> <a href='perfil.php?id_usuario=$id_donodopost&meuperfil=$meuperfil'><img alt='Foto de Perfil' class='circle' height='120px' width='120px' src='fotosperfil/$foto_donodopost'> </a></td>
-								<br> <td> $nome_donodopost </td>
-							</div>
-						</div>";
-				endif;
-				
-				$n = $n + 1;
-			endwhile;
+					//valores da receita:
+					$id_receita = $dados_receita['codreceita'];
+					$imagem = $dados_receita['imagem'];
+					$nome_receita = $dados_receita['nomerec'];
+					$descricao =  $dados_receita['sobre'];
+					
+					//verificando se id_donodopost == id_usuario: (para colocar no link da foto de perfil)
+					if($id_donodopost != $id):
+						$meuperfil = false;
+					else:
+						$meuperfil = true;
+					endif;
+					
+					
+					//exibindo as seleções na página home
+					echo "<div class='row container postagem'>
+								<div name='perfil'>
+									<table>
+									<tr id='perfil'>
+										<td> <a href='perfil.php?id_usuario=$id_donodopost&meuperfil=$meuperfil'><img alt='Foto de Perfil' class='circle' height='90px' width='90px' src='fotosperfil/$foto_donodopost'> </a></td>
+										<td> $nome_donodopost </td>
+									</tr>
+									</table>
+								</div>
+								
+								<div>
+								  <div class='card medium' id='post'>
+									<div class='card-image'>
+									  <img class='responsive-img postshome' alt='$nome_receita' src='arquivos/$imagem'>
+									  <span class='card-title'>$nome_receita</span>
+									</div>
+									<div class='card-content'>
+									  <p>Descrição:<br>$descricao</p>
+									</div>
+									<div class='card-action'>
+									  <a href='receita.php?id_receita=$id_receita'>CLIQUE PARA CONFERIR</a>
+									</div>
+								  </div>
+								</div>
+						  </div>";
+					$n = $n + 1;
+				endwhile;
+			else:
+				echo "Você ainda não segue ninguém!";
+			endif;
 			
-		else: //TELA DE RECEITAS
-		
-			echo 
-			"<div id='alternarpaginas' class='container collection'>
-				<a href='http://localhost:8080/site_trabalho2/home.php?cozinheiros=false' class='collection-item active'>RECEITAS</a>
-				<a href='http://localhost:8080/site_trabalho2/home.php?cozinheiros=true' class='collection-item'>COZINHEIROS</a>
-			</div>";
+		else:
 
-			$sql = "SELECT * FROM receita ORDER BY data DESC";
-			$resultado = mysqli_query($connect, $sql);
-			$receitas = Array();
-			while ($row = mysqli_fetch_assoc($resultado)):
-				$receitas[] = $row['CodReceita'];
-			endwhile;
-			$n = 0;
+			if($cozinheiros): //TELA DE COZINHEIROS
 			
-			while($n < count($receitas)):
-				$receita = $receitas[$n];
+				echo 
+				"<div id='alternarpaginas' class='container collection'>
+					<a href='home.php?' class='collection-item'>RECEITAS</a>
+					<a href='home.php?cozinheiros=true' class='collection-item active'>COZINHEIROS</a>
+					<a href='home.php?seguidos=true' class='collection-item'>SEGUIDOS</a>
+				</div>";
 				
-				// selecionando os dados da receita
-				$sql = "SELECT * FROM receita WHERE CodReceita = '$receita'";
+				$sql = "SELECT DISTINCT autor FROM receita ORDER BY data DESC";
 				$resultado = mysqli_query($connect, $sql);
-				$dados_receita = mysqli_fetch_assoc($resultado);
+				$ids = Array();
+				while ($row = mysqli_fetch_assoc($resultado)):
+					$ids[] = $row['autor'];
+				endwhile;
 				
-				// selecionando os dados do criador do post receita
-				$donodopost = $dados_receita['fk_Usuario_CodigoUsu'];
-				$sql= "SELECT * FROM usuario WHERE CodigoUsu = '$donodopost'";
-				$resultado = mysqli_query($connect, $sql);
-				$dados_donodopost = mysqli_fetch_assoc($resultado);
-				
-				// atribuindo valores para melhor escrita e entendimento
-				
-				//valores do usuario dono do post:
-				$id_donodopost = $dados_donodopost['CodigoUsu'];
-				$foto_donodopost = $dados_donodopost['foto'];
-				$nome_donodopost = $dados_donodopost['nome'];
-				
-				//valores da receita:
-				$id_receita = $dados_receita['CodReceita'];
-				$imagem = $dados_receita['imagem'];
-				$nome_receita = $dados_receita['NomeRec'];
-				$descricao =  $dados_receita['descricao'];
-				
-				//verificando se id_donodopost == id_usuario: (para colocar no link da foto de perfil)
-				if($id_donodopost != $id):
-					$meuperfil = false;
-				else:
-					$meuperfil = true;
-				endif;
-				
-				
-				//exibindo as seleções na página home
-				echo "<div class='row container postagem'>
-							<div name='perfil'>
-								<table>
-								<tr id='perfil'>
-									<td> <a href='perfil.php?id_usuario=$id_donodopost&meuperfil=$meuperfil'><img alt='Foto de Perfil' class='circle' height='90px' width='90px' src='fotosperfil/$foto_donodopost'> </a></td>
-									<td> $nome_donodopost </td>
-								</tr>
-								</table>
-							</div>
-							
-							<div>
-							  <div class='card medium' id='post'>
-								<div class='card-image'>
-								  <img class='responsive-img postshome' alt='$nome_receita' src='arquivos/$imagem'>
-								  <span class='card-title'>$nome_receita</span>
+				$n = 0;
+				while($n < count($ids)):
+					$id_donodopost = $ids[$n];
+
+					if (mysqli_num_rows($resultado) > 0):
+						$sql= "SELECT * FROM usuario WHERE codusu = '$id_donodopost'";
+						$resultado = mysqli_query($connect, $sql);
+						$dados_donodopost = mysqli_fetch_assoc($resultado);
+						
+						// atribuindo valores para melhor escrita e entendimento
+						
+						//valores do usuario dono de posts:
+					
+						$foto_donodopost = $dados_donodopost['imagem'];
+						$nome_donodopost = $dados_donodopost['nome'];
+						
+						echo "<div class='cozinheiros'>
+								<div name='perfil'>
+									<td> <a href='perfil.php?id_usuario=$id_donodopost&meuperfil=$meuperfil'><img alt='Foto de Perfil' class='circle' height='120px' width='120px' src='fotosperfil/$foto_donodopost'> </a></td>
+									<br> <td> $nome_donodopost </td>
 								</div>
-								<div class='card-content'>
-								  <p>Descrição:<br>$descricao</p>
-								</div>
-								<div class='card-action'>
-								  <a href='receita.php?id_receita=$id_receita'>CLIQUE PARA CONFERIR</a>
-								</div>
-							  </div>
-							</div>
-					  </div>";
-				$n = $n + 1;
-			endwhile;	
+							</div>";
+					endif;
+					
+					$n = $n + 1;
+				endwhile;
+				
+			else: //TELA DE RECEITAS
 			
+				echo 
+				"<div id='alternarpaginas' class='container collection'>
+					<a href='http://localhost:8080/site_trabalho2/home.php?cozinheiros=false' class='collection-item active'>RECEITAS</a>
+					<a href='http://localhost:8080/site_trabalho2/home.php?cozinheiros=true' class='collection-item'>COZINHEIROS</a>
+					<a href='home.php?seguidos=true' class='collection-item'>SEGUIDOS</a>
+				</div>";
+
+				$sql = "SELECT * FROM receita ORDER BY data DESC";
+				$resultado = mysqli_query($connect, $sql);
+				$receitas = Array();
+				while ($row = mysqli_fetch_assoc($resultado)):
+					$receitas[] = $row['codreceita'];
+				endwhile;
+				$n = 0;
+				
+				while($n < count($receitas)):
+					$receita = $receitas[$n];
+					
+					// selecionando os dados da receita
+					$sql = "SELECT * FROM receita WHERE codreceita = '$receita'";
+					$resultado = mysqli_query($connect, $sql);
+					$dados_receita = mysqli_fetch_assoc($resultado);
+					
+					// selecionando os dados do criador do post receita
+					$donodopost = $dados_receita['autor'];
+					$sql= "SELECT * FROM usuario WHERE codusu = '$donodopost'";
+					$resultado = mysqli_query($connect, $sql);
+					$dados_donodopost = mysqli_fetch_assoc($resultado);
+					
+					// atribuindo valores para melhor escrita e entendimento
+					
+					//valores do usuario dono do post:
+					$id_donodopost = $dados_donodopost['codusu'];
+					$foto_donodopost = $dados_donodopost['imagem'];
+					$nome_donodopost = $dados_donodopost['nome'];
+					
+					//valores da receita:
+					$id_receita = $dados_receita['codreceita'];
+					$imagem = $dados_receita['imagem'];
+					$nome_receita = $dados_receita['nomerec'];
+					$descricao =  $dados_receita['sobre'];
+					
+					//verificando se id_donodopost == id_usuario: (para colocar no link da foto de perfil)
+					if($id_donodopost != $id):
+						$meuperfil = false;
+					else:
+						$meuperfil = true;
+					endif;
+					
+					
+					//exibindo as seleções na página home
+					echo "<div class='row container postagem'>
+								<div name='perfil'>
+									<table>
+									<tr id='perfil'>
+										<td> <a href='perfil.php?id_usuario=$id_donodopost&meuperfil=$meuperfil'><img alt='Foto de Perfil' class='circle' height='90px' width='90px' src='fotosperfil/$foto_donodopost'> </a></td>
+										<td> $nome_donodopost </td>
+									</tr>
+									</table>
+								</div>
+								
+								<div>
+								  <div class='card medium' id='post'>
+									<div class='card-image'>
+									  <img class='responsive-img postshome' alt='$nome_receita' src='arquivos/$imagem'>
+									  <span class='card-title'>$nome_receita</span>
+									</div>
+									<div class='card-content'>
+									  <p>Descrição:<br>$descricao</p>
+									</div>
+									<div class='card-action'>
+									  <a href='receita.php?id_receita=$id_receita'>CLIQUE PARA CONFERIR</a>
+									</div>
+								  </div>
+								</div>
+						  </div>";
+					$n = $n + 1;
+				endwhile;	
+				
+			endif;
 		endif;
 	//////////// BARRA DE PESQUISA ///////////////
 	else:
@@ -209,7 +304,7 @@ $dados = mysqli_fetch_assoc($resultado);
 			$sql = "SELECT * FROM usuario WHERE nome LIKE '%".$pesquisa."%'";
 			$resultado = mysqli_query($connect, $sql);
 			while ($row = mysqli_fetch_assoc($resultado)):
-				$usuarios[] = $row['CodigoUsu'];
+				$usuarios[] = $row['codusu'];
 			endwhile;
 			
 			$n = 0;
@@ -225,11 +320,11 @@ $dados = mysqli_fetch_assoc($resultado);
 						$meuperfil = true;
 					endif;
 					
-					$sql = "SELECT * FROM usuario WHERE CodigoUsu = $id_donodopost";
+					$sql = "SELECT * FROM usuario WHERE codusu = $id_donodopost";
 					$resultado = mysqli_query($connect, $sql);
 					$dados_usuarios = mysqli_fetch_assoc($resultado);
 					
-					$foto_donodopost = $dados_usuarios['foto'];
+					$foto_donodopost = $dados_usuarios['imagem'];
 					$nome_donodopost = $dados_usuarios['nome'];
 					
 					echo "<div class='row container'>
@@ -249,9 +344,9 @@ $dados = mysqli_fetch_assoc($resultado);
 		else:
 		
 			$pesquisa = $_GET['pesquisa'];
-			$resultado = mysqli_query($connect,"SELECT CodReceita FROM receita WHERE NomeRec like '%".$pesquisa."%' ORDER BY data");
+			$resultado = mysqli_query($connect,"SELECT codreceita FROM receita WHERE nomerec lLIKE '%".$pesquisa."%' ORDER BY data");
 			while ($row = mysqli_fetch_assoc($resultado)):
-				$receitas[] = $row['CodReceita'];	
+				$receitas[] = $row['codreceita'];	
 			endwhile;
 			$n = 0;
 			
@@ -260,28 +355,28 @@ $dados = mysqli_fetch_assoc($resultado);
 					$receita = $receitas[$n];
 
 					// selecionando os dados da receita
-					$sql = "SELECT * FROM receita WHERE CodReceita = '$receita'";
+					$sql = "SELECT * FROM receita WHERE codreceita = '$receita'";
 					$resultado = mysqli_query($connect, $sql);
 					$dados_receita = mysqli_fetch_assoc($resultado);
 
 					// selecionando os dados do criador do post receita
-					$donodopost = $dados_receita['fk_Usuario_CodigoUsu'];
-					$sql= "SELECT * FROM usuario WHERE CodigoUsu = '$donodopost'";
+					$donodopost = $dados_receita['autor'];
+					$sql= "SELECT * FROM usuario WHERE codusu = '$donodopost'";
 					$resultado = mysqli_query($connect, $sql);
 					$dados_donodopost = mysqli_fetch_assoc($resultado);
 
 					// atribuindo valores para melhor escrita e entendimento
 
 					//valores do usuario dono do post:
-					$id_donodopost = $dados_donodopost['CodigoUsu'];
-					$foto_donodopost = $dados_donodopost['foto'];
+					$id_donodopost = $dados_donodopost['codusu'];
+					$foto_donodopost = $dados_donodopost['imagem'];
 					$nome_donodopost = $dados_donodopost['nome'];
 
 					//valores da receita:
-					$id_receita = $dados_receita['CodReceita'];
+					$id_receita = $dados_receita['codreceita'];
 					$imagem = $dados_receita['imagem'];
-					$nome_receita = $dados_receita['NomeRec'];
-					$descricao =  $dados_receita['descricao'];
+					$nome_receita = $dados_receita['nomerec'];
+					$descricao =  $dados_receita['sobre'];
 
 					//verificando se id_donodopost == id_usuario: (para colocar no link da foto de perfil)
 					if($id_donodopost != $id):

@@ -16,7 +16,7 @@ if(!isset($_SESSION['logado'])):
 endif;
 
 $id = $_SESSION['id_usuario'];
-$sql = "SELECT * FROM usuario WHERE CodigoUsu = '$id'";
+$sql = "SELECT * FROM usuario WHERE codusu = '$id'";
 $resultado = mysqli_query($connect, $sql);
 $dados = mysqli_fetch_assoc($resultado);
 ?>
@@ -24,9 +24,9 @@ $dados = mysqli_fetch_assoc($resultado);
 <body>
 	<header>
 		<nav class="#fbc02d yellow darken-2" role="navigation">
-		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-		  <ul class="right hide-on-med-and-down">
-			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
+		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
+		  <ul class="right">
+			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating"> <img class="circle z-depth-2" height='50px' width='50px' src="fotosperfil/<?php echo $dados['imagem']; ?>"> </a> </li>
 			<li><a href="logout.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> stop </i> </a> </li>
 		  </ul>
 		</div>
@@ -39,7 +39,7 @@ $dados = mysqli_fetch_assoc($resultado);
 				<h1 align="center"> Postar Receita </h1>
 				
 				<div align="center">
-					<img id="fotopreview" class="post" src="<?=$foto?>"><br>
+					<img id="fotopreview" class="post" src="foto"><br>
 					<label> Foto da Receita </label> <br>
 					<input id="uploadfoto" type="file" name="imagem">
 				</div>
@@ -107,7 +107,7 @@ $dados = mysqli_fetch_assoc($resultado);
 						if(move_uploaded_file($temporario, $pasta.$novoNome)): /*retorna true caso o arqv temporario consiga
 						ir para o destino; altera o nome do arquivo*/
 						
-							$ingredientes = "<ol>";
+							$ingredientes = "<ul>";
 							$nome =  filter_input(INPUT_POST,'nome_receita',FILTER_SANITIZE_SPECIAL_CHARS);
 							$desc = filter_input(INPUT_POST,'descricao',FILTER_SANITIZE_SPECIAL_CHARS);
 							$preparo = filter_input(INPUT_POST,'preparo',FILTER_SANITIZE_SPECIAL_CHARS);
@@ -117,12 +117,12 @@ $dados = mysqli_fetch_assoc($resultado);
 								$ingredientes = $ingredientes."<li> $ingrediente </li>";
 								$n = $n + 1;
 							endwhile;
-							$ingredientes = $ingredientes."</ol>";
+							$ingredientes = $ingredientes."</ul>";
 							if (empty($nome) or empty($preparo) or empty($ingredientes) or empty($desc)):
 								$erros[] = "<script>alert('Todos os campos precisam ser preenchidos');</script>";
 							else:
 								$id_usuario = $_SESSION['id_usuario'];
-								$sql = "INSERT INTO receita (NomeRec,Preparo,descricao,ingredientes,fk_Usuario_CodigoUsu,imagem) VALUES ('$nome','$preparo','$desc','$ingredientes','$id_usuario','$novoNome')";
+								$sql = "INSERT INTO receita (nomerec,preparo,sobre,ingrediente,autor,imagem) VALUES ('$nome','$preparo','$desc','$ingredientes','$id_usuario','$novoNome')";
 								$resultado = mysqli_query($connect,$sql);
 								if ($resultado):
 									$_SESSION['post'] = true; 
@@ -139,7 +139,7 @@ $dados = mysqli_fetch_assoc($resultado);
 						endif;
 
 					else:
-						$erros[] = "<script>alert('Formato de arquivo não suportado');</script>";
+						$erros[] = "<script>alert('Imagem com formato não suportado ou vazia');</script>";
 					endif;
 					
 					if(!empty($erros)):

@@ -37,16 +37,18 @@ include_once 'includes/header.php';
 						$erros[] = "<script>alert('O login $login já está cadastrado');</script>";
 					else:
 						if(empty($descricao)):
-							$sql = "INSERT INTO usuario (nome, email,senha,foto) VALUES ('$nome','$login','$senha','$novoNome')";
+							$sql = "INSERT INTO usuario (nome, email,senha,imagem) VALUES ('$nome','$login','$senha','$novoNome')";
 							$resultado = mysqli_query($connect,$sql);
 							if ($resultado):
 								$_SESSION['logado'] = true;
 								$_SESSION['id_usuario'] = mysqli_insert_id($connect);
 								mysqli_close();
 								header('Location: home.php');
+							else:
+								"<script>alert('Não foi possível inserir as informações ao banco de dados');</script>";
 							endif;
 						else:
-							$sql = "INSERT INTO usuario (nome, email,senha,foto,descricaoPerfil) VALUES ('$nome','$login','$senha','$novoNome','$descricao')";
+							$sql = "INSERT INTO usuario (nome, email,senha,imagem,sobre) VALUES ('$nome','$login','$senha','$novoNome','$descricao')";
 							$resultado = mysqli_query($connect,$sql);
 							if ($resultado):
 								$_SESSION['logado'] = true;
@@ -61,7 +63,7 @@ include_once 'includes/header.php';
 				$erros[] = "<script>alert('Erro de upload de imagem');</script>";
 			endif;
 		else:
-			$erros[] = "<script>alert('Formato não suportado');</script>";
+			$erros[] = "<script>alert('Imagem com formato não suportado ou vazia');</script>";
 		endif;	
 
 		if(!empty($erros)):
@@ -74,8 +76,8 @@ include_once 'includes/header.php';
 ?>
 	<header>
 		<nav class="#fbc02d yellow darken-2" role="navigation">
-			<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-			  <ul class="right hide-on-med-and-down">
+			<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
+			  <ul class="right">
 				<li><a href="index.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> subdirectory_arrow_right </i> </a> </li>
 			  </ul>
 			</div>

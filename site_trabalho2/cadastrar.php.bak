@@ -61,7 +61,7 @@ include_once 'includes/header.php';
 				$erros[] = "<script>alert('Erro de upload de imagem');</script>";
 			endif;
 		else:
-			$erros[] = "<script>alert('Formato não suportado');</script>";
+			$erros[] = "<script>alert('Imagem com formato não suportado ou vazia');</script>";
 		endif;	
 
 		if(!empty($erros)):
@@ -75,7 +75,7 @@ include_once 'includes/header.php';
 	<header>
 		<nav class="#fbc02d yellow darken-2" role="navigation">
 			<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-			  <ul class="right hide-on-med-and-down">
+			  <ul class="right">
 				<li><a href="index.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> subdirectory_arrow_right </i> </a> </li>
 			  </ul>
 			</div>
@@ -124,7 +124,7 @@ include_once 'includes/header.php';
 				<div class="row">
 					<div class="input-field inline col s6 offset-s3">
 						<input placeholder="Descrição" name="descricao" type="text" class="validate">
-						<span class="helper-text>Uma descrição sobre você</span>
+						<span class="helper-text">Uma descrição sobre você</span>
 					</div>
 				</div>
 				

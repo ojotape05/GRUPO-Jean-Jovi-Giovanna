@@ -39,10 +39,10 @@ endif;
 	
 	<header>
 		<nav class="#fbc02d yellow darken-2" role="navigation">
-		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-		  <ul class="right hide-on-med-and-down">
+		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
+		  <ul class="right">
 			<li><a href="post.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> add_circle </i> </a> </li>
-			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
+			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id_usuario.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
 			<li><a href="logout.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> stop </i> </a> </li>
 		  </ul>
 		</div>
@@ -52,6 +52,11 @@ endif;
 	<main>
 		<div class="row container">
 			<?php
+			
+			if(!empty($_GET['fav'])):
+				echo "<script>alert('Você já favoritou essa receita')</script>";
+			endif;
+			
 			$servidor = $_SERVER['PHP_SELF'];
 			
 			$sql = "SELECT fk_Usuario_CodigoUsu FROM receita WHERE CodReceita = '$id_receita'";
@@ -62,45 +67,24 @@ endif;
 			if($id_usuario == $id_donodareceita ):
 				echo "<div class='fotonome'>
 						<ul>
-							<a href='#modal1' class='btn-floating #f57f17 yellow darken-4'> <i class= 'material-icons'> create </i> </a>
-							<div id='modal1' class='modal'>
-							<div class='modal-content'>
-							  <h4>EDITAR RECEITA</h4>
-							  <form action='$servidor'>
-								<div class='row'>
-									<div class='input-field col s6 offset-s3'
-										<input placeholder='Nome da Receita' name='nome_receita' type='text' class='validate'>
-									</div>
-								</div>
-								
-								<div class='row'>
-									<div class='input-field col s6 offset-s3'>
-										<input placeholder='Descrição' name='descricao' type='text' class='validate'>
-									</div>
-								</div>
-								
-								<div class='row'>
-									<div class='input-field col s6 offset-s3'>
-										<textarea placeholder='Modo de Preparo' name='preparo' type='text' class='validate'></textarea>
-									</div>
-								</div>
-
-								<div class='row'>
-									<div class='input-field col s6 offset-s3'>
-										<label> Ingredientes </label><br><br>
-											<div id='lines'></div>
-											<button type='button' onclick='addInput('lines')'>+</button><br>
-											<button type='submit' name='enviar' class='col s6 offset-s3 btn waves-effect #f57f17 yellow darken-4'>
-									Enviar  <i class='material-icons right'>send</i> </button>
-									</div>
-								</div>
-								</form>
-							</div>
-						<div class='modal-footer'>
-						  <a href='receita.php?id_receita=$id_receita' class='modal-close waves-effect waves-green btn-flat'>Enviar</a>
-						</div>
-					  </div>
+							<a href='editar.php?id_receita=$id_receita' class='btn-floating #f57f17 yellow darken-4'> <i class= 'material-icons'> create </i> </a>
 							<a href='delete.php?id_receita=$id_receita' class='btn-floating red'> <i class= 'material-icons'> delete </i> </a>
+						</ul>
+					</div>";
+			else:
+				$sql = "SELECT codreceita FROM favorito WHERE codreceita = $id_receita";
+				$resultado = mysqli_query($connect, $sql);
+				$receita = Array();
+				while ($row = mysqli_fetch_assoc($resultado)):
+					$receita[] = $row['fk_Receita_CodReceita'];
+				endwhile;
+				
+				$numero_fav = count($receita);
+				
+				echo "<div class='fotonome'>
+						<ul>
+							<li>  $numero_fav  </li>
+							<li> <a href='favorito.php?id_receita=$id_receita' class='btn-floating #f57f17 yellow darken-4'> <i class= 'material-icons'> favorite </i> </a> </li>
 						</ul>
 					</div>";
 			endif;
@@ -115,19 +99,19 @@ endif;
 				<div class='card-content'>
 					<div class="divider"></div>
 					<div class="section">
-						<h5>Descrição:<br><?php echo $dados_receita['descricao']; ?></h5>
+						<h5>Descrição:<br></h5><p><?php echo $dados_receita['descricao']; ?></p>
 					</div>
 				</div>
 				<div class='card-content'>
 					<div class="divider"></div>
 					<div class="section">
-						<h5>Ingredientes:<br><?php echo $dados_receita['ingredientes']; ?></h5>
+						<h5>Ingredientes:<br></h5><p><?php echo $dados_receita['ingredientes']; ?></p>
 					</div>
 				</div>
 				<div class='card-content'>
 					<div class="divider"></div>
 					<div class="section">
-						<h5>Modo de preparo:<br><?php echo $dados_receita['Preparo']; ?></h5>
+						<h5>Modo de preparo:</h5><br><p><?php echo $dados_receita['Preparo']; ?></p>
 					</div>
 				</div>
 			  </div>

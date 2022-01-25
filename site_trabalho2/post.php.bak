@@ -24,8 +24,8 @@ $dados = mysqli_fetch_assoc($resultado);
 <body>
 	<header>
 		<nav class="#fbc02d yellow darken-2" role="navigation">
-		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-		  <ul class="right hide-on-med-and-down">
+		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
+		  <ul class="right">
 			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
 			<li><a href="logout.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> stop </i> </a> </li>
 		  </ul>
@@ -39,7 +39,7 @@ $dados = mysqli_fetch_assoc($resultado);
 				<h1 align="center"> Postar Receita </h1>
 				
 				<div align="center">
-					<img id="fotopreview" class="post" src="<?=$foto?>"><br>
+					<img id="fotopreview" class="post" src="foto"><br>
 					<label> Foto da Receita </label> <br>
 					<input id="uploadfoto" type="file" name="imagem">
 				</div>
@@ -107,17 +107,17 @@ $dados = mysqli_fetch_assoc($resultado);
 						if(move_uploaded_file($temporario, $pasta.$novoNome)): /*retorna true caso o arqv temporario consiga
 						ir para o destino; altera o nome do arquivo*/
 						
-							$ingredientes = "<li>";
+							$ingredientes = "<ol>";
 							$nome =  filter_input(INPUT_POST,'nome_receita',FILTER_SANITIZE_SPECIAL_CHARS);
 							$desc = filter_input(INPUT_POST,'descricao',FILTER_SANITIZE_SPECIAL_CHARS);
 							$preparo = filter_input(INPUT_POST,'preparo',FILTER_SANITIZE_SPECIAL_CHARS);
 							$n=1;
 							while(!empty($_POST['ingrediente'.$n])):
 								$ingrediente = $_POST["ingrediente".$n];
-								$ingredientes = $ingredientes."<ul> $ingrediente </ul>";
+								$ingredientes = $ingredientes."<li> $ingrediente </li>";
 								$n = $n + 1;
 							endwhile;
-							$ingredientes = $ingredientes."</li>";
+							$ingredientes = $ingredientes."</ol>";
 							if (empty($nome) or empty($preparo) or empty($ingredientes) or empty($desc)):
 								$erros[] = "<script>alert('Todos os campos precisam ser preenchidos');</script>";
 							else:
@@ -139,7 +139,7 @@ $dados = mysqli_fetch_assoc($resultado);
 						endif;
 
 					else:
-						$erros[] = "<script>alert('Formato de arquivo não suportado');</script>";
+						$erros[] = "<script>alert('Imagem com formato não suportado ou vazia');</script>";
 					endif;
 					
 					if(!empty($erros)):

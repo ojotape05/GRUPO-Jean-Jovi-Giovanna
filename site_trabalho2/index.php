@@ -54,8 +54,8 @@ include_once 'includes/header.php';
 ?>
 	<header>
 		<nav class="#fbc02d yellow darken-2" role="navigation">
-			<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo">ComeCome</a>
-			  <ul class="right hide-on-med-and-down">
+			<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
+			  <ul class="right">
 				<li><a href="cadastrar.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> subdirectory_arrow_left </i> </a> </li>
 			  </ul>
 			</div>
