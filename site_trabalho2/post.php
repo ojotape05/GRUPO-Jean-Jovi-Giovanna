@@ -16,7 +16,7 @@ if(!isset($_SESSION['logado'])):
 endif;
 
 $id = $_SESSION['id_usuario'];
-$sql = "SELECT * FROM usuario WHERE CodigoUsu = '$id'";
+$sql = "SELECT * FROM usuario WHERE codusu = '$id'";
 $resultado = mysqli_query($connect, $sql);
 $dados = mysqli_fetch_assoc($resultado);
 ?>
@@ -26,7 +26,7 @@ $dados = mysqli_fetch_assoc($resultado);
 		<nav class="#fbc02d yellow darken-2" role="navigation">
 		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
 		  <ul class="right">
-			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
+			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating"> <img class="circle z-depth-2" height='50px' width='50px' src="fotosperfil/<?php echo $dados['imagem']; ?>"> </a> </li>
 			<li><a href="logout.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> stop </i> </a> </li>
 		  </ul>
 		</div>
@@ -122,7 +122,7 @@ $dados = mysqli_fetch_assoc($resultado);
 								$erros[] = "<script>alert('Todos os campos precisam ser preenchidos');</script>";
 							else:
 								$id_usuario = $_SESSION['id_usuario'];
-								$sql = "INSERT INTO receita (NomeRec,Preparo,descricao,ingredientes,fk_Usuario_CodigoUsu,imagem) VALUES ('$nome','$preparo','$desc','$ingredientes','$id_usuario','$novoNome')";
+								$sql = "INSERT INTO receita (nomerec,preparo,sobre,ingrediente,autor,imagem) VALUES ('$nome','$preparo','$desc','$ingredientes','$id_usuario','$novoNome')";
 								$resultado = mysqli_query($connect,$sql);
 								if ($resultado):
 									$_SESSION['post'] = true; 
