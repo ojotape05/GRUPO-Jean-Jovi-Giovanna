@@ -14,17 +14,17 @@ endif;
 
 
 $id = $_SESSION['id_usuario'];
-$sql = "SELECT * FROM usuario WHERE CodigoUsu = '$id'";
+$sql = "SELECT * FROM usuario WHERE codusu = '$id'";
 $resultado = mysqli_query($connect, $sql);
 $dados = mysqli_fetch_assoc($resultado);
 
 
 if(!empty( $_GET['id_receita'])):
 	$id_receita = $_GET['id_receita'];
-	$resultado = mysqli_query($connect,"SELECT * FROM receita WHERE CodReceita = '$id_receita'");
+	$resultado = mysqli_query($connect,"SELECT * FROM receita WHERE codreceita = '$id_receita'");
 	$dados_receita = mysqli_fetch_assoc($resultado);
 else:
-	//header("Location: home.php");
+	header("Location: home.php");
 endif;
 ?>
 
@@ -33,7 +33,7 @@ endif;
 		<nav class="#fbc02d yellow darken-2" role="navigation">
 		<div class="nav-wrapper container"><a id="logo-container" href="home.php" class="brand-logo left">ComeCome</a>
 		  <ul class="right">
-			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> account_circle </i> </a> </li>
+			<li><a href="perfil.php?id_usuario=<?php $meuperfil = true; echo $id.'&meuperfil='.$meuperfil;?>" class="btn-floating"> <img class="circle z-depth-2" height='50px' width='50px' src="fotosperfil/<?php echo $dados['imagem']; ?>"> </a> </li>
 			<li><a href="logout.php" class="btn-floating #f57f17 yellow darken-4"> <i class= "material-icons"> stop </i> </a> </li>
 		  </ul>
 		</div>
@@ -74,19 +74,19 @@ endif;
 				
 				<div class="row">
 					<div class="input-field col s6 offset-s3">
-						<input placeholder="<?php echo $dados_receita['NomeRec']?>" name="nome_receita" type="text" class="validate">
+						<input placeholder="<?php echo $dados_receita['nomerec']?>" name="nome_receita" type="text" class="validate">
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="input-field col s6 offset-s3">
-						<input placeholder="<?php echo $dados_receita['descricao'];?>" name="descricao" type="text" class="validate">
+						<input placeholder="<?php echo $dados_receita['sobre'];?>" name="descricao" type="text" class="validate">
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="input-field col s6 offset-s3">
-						<textarea placeholder="<?php echo $dados_receita['Preparo']; ?>" name="preparo" type="text" class="validate"></textarea>
+						<textarea placeholder="<?php echo $dados_receita['preparo']; ?>" name="preparo" type="text" class="validate"></textarea>
 					</div>
 				</div>
 
@@ -136,10 +136,10 @@ endif;
 
 								$n=0;
 								$valores = [$nome,$preparo,$novoNome,$desc,$ingredientes];
-								$colunasEditaveis = ['NomeRec','Preparo','imagem','descricao','ingredientes'];
+								$colunasEditaveis = ['nomerec','preparo','imagem','sobre','ingrediente'];
 								while($n<5):
 									if(!empty($valores[$n])):
-										$sql = "UPDATE receita SET $colunasEditaveis[$n] = '$valores[$n]' WHERE CodReceita = '$id_receita'";
+										$sql = "UPDATE receita SET $colunasEditaveis[$n] = '$valores[$n]' WHERE codreceita = '$id_receita'";
 										$resultado = mysqli_query($connect,$sql);
 									endif;
 									$n = $n + 1;
@@ -193,11 +193,11 @@ endif;
 
 						$n=0;
 						$valores = [$nome,$preparo,$desc,$ingredientes];
-						$colunasEditaveis = ['NomeRec','Preparo','descricao','ingredientes'];
+						$colunasEditaveis = ['nomerec','preparo','sobre','ingrediente'];
 
 						while($n<4):
 							if($valores[$n]!= null):
-								$sql = "UPDATE receita SET $colunasEditaveis[$n] = '$valores[$n]' WHERE CodReceita = '$id_receita'";
+								$sql = "UPDATE receita SET $colunasEditaveis[$n] = '$valores[$n]' WHERE codreceita = '$id_receita'";
 								$resultado = mysqli_query($connect,$sql);
 							endif;
 							$n = $n +1;
