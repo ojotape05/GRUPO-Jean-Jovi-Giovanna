@@ -14,7 +14,7 @@
 	
 	if(!empty($_GET['id_receita'])):
 		$id_receita = $_GET['id_receita'];
-		$sql = "DELETE FROM receita WHERE CodReceita = '$id_receita'";
+		$sql = "DELETE FROM receita WHERE codreceita = '$id_receita'";
 		$resultado = mysqli_query($connect,$sql);
 		
 		mysqli_close($connect);
