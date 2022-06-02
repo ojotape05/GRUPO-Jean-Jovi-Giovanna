@@ -30,7 +30,7 @@ Giovanna Ferreira Fiorio : ggiovannaffiorio@gmail.com<br>
 
 ### 5.PMC<br>
 
-![Alt text](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/PMC%20JP%2CJV%2CGF.jpg?raw=true "PMC")
+![PMC](https://github.com/jpbpissineli/GRUPO-Jean-Jovi/blob/main/arquivos/PMC%20JP%2CJV%2CGF.jpg?raw=true "PMC")
  
 ### 6.MODELO CONCEITUAL<br>
 
